@@ -1,6 +1,7 @@
 package app.jopepato.com.primeraapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
         txtEmail = (EditText) findViewById(R.id.cmpEmail);
         txtDireccion = (EditText) findViewById(R.id.cmpDireccion);
         contactsListView = (ListView) findViewById(R.id.listView);
-
+        imgViewContacto = (ImageView) findViewById(R.id.imgViewContacto);
 
         txtNombre.addTextChangedListener(new TextChangedListener(){
             @Override
@@ -86,7 +87,8 @@ public class MainActivity extends ActionBarActivity {
                 txtNombre.getText().toString(),
                 txtTelefono.getText().toString(),
                 txtDireccion.getText().toString(),
-                txtEmail.getText().toString()
+                txtEmail.getText().toString(),
+                (Uri) imgViewContacto.getTag() //Obtenemos el atributo TAG de la Uri de la imagen
         );
         String msg = String.format("%s ha sido agregado a la lista", txtNombre.getText());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -96,8 +98,8 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-    private void agregarContacto(String nombre, String telefono, String Email, String direccion) {
-        Contacto nuevo = new Contacto(nombre, telefono, Email, direccion);
+    private void agregarContacto(String nombre, String telefono, String Email, String direccion, Uri imageUri) {
+        Contacto nuevo = new Contacto(nombre, telefono, Email, direccion, imageUri);
         adapter.add(nuevo);
     }
 
@@ -106,6 +108,9 @@ public class MainActivity extends ActionBarActivity {
         txtEmail.getText().clear();
         txtDireccion.getText().clear();
         txtTelefono.getText().clear();
+        //Reestablecemos la imagen
+        imgViewContacto.setImageResource(R.drawable.contacto);
+        imgViewContacto.getTag();
         txtNombre.requestFocus();
     }
 
@@ -125,5 +130,14 @@ public class MainActivity extends ActionBarActivity {
         }
         intent.setType("image/*");
         startActivityForResult(intent, request_code);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK && requestCode == request_code){
+            imgViewContacto.setImageURI(data.getData());
+            //Utilizamos el atributo TAG para almacenar la URI del archivo seleccionado
+            imgViewContacto.setTag(data.getData());
+        }
     }
 }
