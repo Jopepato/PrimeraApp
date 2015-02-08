@@ -34,7 +34,7 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
         return rootView;
     }
 
-    private void inicializarComponentes(View view) {
+    private void inicializarComponentes(final View view) {
         txtNombre = (EditText) view.findViewById(R.id.cmpNombre);
         txtTelefono = (EditText) view.findViewById(R.id.cmpTelefono);
         txtEmail = (EditText) view.findViewById(R.id.cmpEmail);

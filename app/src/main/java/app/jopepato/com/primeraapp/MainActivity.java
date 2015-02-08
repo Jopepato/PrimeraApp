@@ -1,18 +1,13 @@
 package app.jopepato.com.primeraapp;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +18,13 @@ import app.jopepato.com.primeraapp.util.TextChangedListener;
 
 public class MainActivity extends ActionBarActivity {
 
+    private EditText txtNombre, txtTelefono, txtEmail, txtDireccion;
+    private ArrayAdapter<Contacto> adapter;
+    private ImageView imgViewContacto;
+    private ListView contactsListView;
+    private Button btnAgregar;
+    private TabHost tabHost;
+    private int request_code = 1;
 
 
     @Override
@@ -46,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         tabHost.setup();
 
         TabHost.TabSpec spec = tabHost.newTabSpec("tab1");
-        spec.setContent(R.id.tab1);
+      //  spec.setContent(R.id.tab1);
         spec.setIndicator("Crear");
         tabHost.addTab(spec);
 
@@ -65,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
         contactsListView = (ListView) findViewById(R.id.listView);
         imgViewContacto = (ImageView) findViewById(R.id.imgViewContacto);
 
-        txtNombre.addTextChangedListener(new TextChangedListener(){
+        txtNombre.addTextChangedListener(new TextChangedListener() {
             @Override
             public void onTextChanged(CharSequence seq, int i1, int i2, int i3) {
                 //Ponemos el boton en enable, cuando hay algo escrito en el nombre
@@ -74,4 +76,5 @@ public class MainActivity extends ActionBarActivity {
             }
         });
     }
+}
 
