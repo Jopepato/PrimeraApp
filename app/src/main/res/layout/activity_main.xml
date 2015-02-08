@@ -42,12 +42,13 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:textStyle="bold"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="#1A237E" />
 
                     <ImageView
                         android:layout_width="96dp"
                         android:layout_height="96dp"
-                        android:id="@+id/imageView"
+                        android:id="@+id/imgViewContacto"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
                         android:scaleType="fitCenter"
@@ -120,10 +121,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Lista de contactos"
                         android:id="@+id/textView2"
                         android:layout_marginTop="15dp"
-                        android:textStyle="italic" />
+                        android:textStyle="italic"
+                        android:text="Lista de contactos"
+                        android:textColor="#1A237E" />
 
                     <ListView
                         android:layout_width="fill_parent"

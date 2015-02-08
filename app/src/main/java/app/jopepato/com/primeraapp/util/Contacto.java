@@ -1,5 +1,7 @@
 package app.jopepato.com.primeraapp.util;
 
+import android.net.Uri;
+
 /**
  * Created by jopepato on 08/02/2015.
  */
@@ -7,13 +9,15 @@ package app.jopepato.com.primeraapp.util;
 //Clase contacto que contendra los datos de una persona
 public class Contacto {
     private String nombre, telefono, email, direccion;
+    private Uri imageUri;
 
     //Constructor
-    public Contacto(String nombre, String telefono, String email, String direccion) {
+    public Contacto(String nombre, String telefono, String email, String direccion, Uri imageUri) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
+        this.imageUri = imageUri;
     }
 
     //Getters
@@ -33,6 +37,8 @@ public class Contacto {
         return direccion;
     }
 
+   public Uri getImageUri(){return imageUri;};
+
     //Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -48,6 +54,10 @@ public class Contacto {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public void setImageUri(Uri imageUri){
+        this.imageUri = imageUri;
     }
 
 }
