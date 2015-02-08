@@ -31,5 +31,5 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Direccion"
-        android:id="@+id/textDireccion" />
+        android:id="@+id/viewDireccion" />
 </LinearLayout>

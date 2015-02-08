@@ -33,7 +33,7 @@ public class ContactListAdapter extends ArrayAdapter<Contacto>{
         inicializarCamposDeTexto(view, actual);
         return view;
     }
-    public inicializarCamposDeTexto(View view, Contacto actual){
+    private void inicializarCamposDeTexto(View view, Contacto actual){
         TextView textView = (TextView) view.findViewById(R.id.viewNombre);
         textView.setText(actual.getNombre());
         textView = (TextView) view.findViewById(R.id.viewEmail);

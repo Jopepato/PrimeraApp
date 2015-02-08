@@ -1,17 +1,21 @@
 package app.jopepato.com.primeraapp;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import app.jopepato.com.primeraapp.util.ContactListAdapter;
 import app.jopepato.com.primeraapp.util.Contacto;
 import app.jopepato.com.primeraapp.util.TextChangedListener;
 
@@ -19,17 +23,27 @@ import app.jopepato.com.primeraapp.util.TextChangedListener;
 public class MainActivity extends ActionBarActivity {
 
     private EditText txtNombre, txtTelefono, txtEmail, txtDireccion;
-    private List<Contacto> contactos = new ArrayList<Contacto>();
+    private ArrayAdapter<Contacto> adapter;
+    private ImageView imgViewContacto;
     private ListView contactsListView;
     private Button btnAgregar;
     private TabHost tabHost;
+    private int request_code = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inicializarComponetesUI();
+        inicializarListaContactos();
         inicializarTabs();
+
+    }
+
+    private void inicializarListaContactos() {
+        adapter = new ContactListAdapter(this, new ArrayList<Contacto>());
+        contactsListView.setAdapter(adapter);
+
     }
 
     private void inicializarTabs() {
@@ -68,10 +82,23 @@ public class MainActivity extends ActionBarActivity {
 
     public void onClick(View view) {
         //Funcion que nos muestra un mensaje por pantalla cuando agregamos a alguien
+        agregarContacto(
+                txtNombre.getText().toString(),
+                txtTelefono.getText().toString(),
+                txtDireccion.getText().toString(),
+                txtEmail.getText().toString()
+        );
         String msg = String.format("%s ha sido agregado a la lista", txtNombre.getText());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         btnAgregar.setEnabled(false);
         limpiarCampos();
+    }
+
+
+
+    private void agregarContacto(String nombre, String telefono, String Email, String direccion) {
+        Contacto nuevo = new Contacto(nombre, telefono, Email, direccion);
+        adapter.add(nuevo);
     }
 
     protected void limpiarCampos() {
@@ -80,5 +107,23 @@ public class MainActivity extends ActionBarActivity {
         txtDireccion.getText().clear();
         txtTelefono.getText().clear();
         txtNombre.requestFocus();
+    }
+
+    public void onImgClick(View view) {
+        Intent intent = null;
+        //Verificamos la version
+        if (Build.VERSION.SDK_INT < 19){
+            //Android jellybean 4.3 y anteriores
+            intent = new Intent();
+            //Con get_content podemos acceder a los contenidos del telefono
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        }else{
+            //Android 4.4 y superiores
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+        }
+        intent.setType("image/*");
+        startActivityForResult(intent, request_code);
     }
 }

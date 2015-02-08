@@ -29,10 +29,11 @@
                     android:id="@+id/tab1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_margin="16dp">
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Crear contacto"
@@ -40,7 +41,18 @@
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal" />
+
+                    <ImageView
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:id="@+id/imageView"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitCenter"
+                        android:src = "@drawable/contacto"
+                        android:onClick="onImgClick"/>
 
                     <EditText
                         android:layout_width="fill_parent"
@@ -84,7 +96,7 @@
                         android:hint="Correo electrónico" />
 
                     <Button
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agregar contacto"
                         android:id="@+id/btnAgregar"
@@ -92,7 +104,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:onClick="onClick"
-                        android:enabled="false"/>
+                        android:enabled="false"
+                        android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>
 
@@ -100,12 +113,8 @@
                     android:id="@+id/tab2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical">
-
-                    <ListView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/listView" />
+                    android:orientation="vertical"
+                    android:layout_margin="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,6 +124,11 @@
                         android:id="@+id/textView2"
                         android:layout_marginTop="15dp"
                         android:textStyle="italic" />
+
+                    <ListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listView" />
 
                 </LinearLayout>
 
