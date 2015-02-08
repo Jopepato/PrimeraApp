@@ -21,6 +21,7 @@ import app.jopepato.com.primeraapp.util.TextChangedListener;
  * Created by jopepato on 08/02/2015.
  */
 public class CrearContactoFragment extends Fragment implements View.OnClickListener{
+
     private EditText txtNombre, txtTelefono, txtEmail, txtDireccion;
     private ImageView imgViewContacto;
     private Button btnAgregar;
@@ -40,7 +41,6 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
         txtEmail = (EditText) view.findViewById(R.id.cmpEmail);
         txtDireccion = (EditText) view.findViewById(R.id.cmpDireccion);
         imgViewContacto = (ImageView) view.findViewById(R.id.imgViewContacto);
-
         txtNombre.addTextChangedListener(new TextChangedListener(){
             @Override
             public void onTextChanged(CharSequence seq, int i1, int i2, int i3) {
