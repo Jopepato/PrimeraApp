@@ -1,6 +1,7 @@
 package app.jopepato.com.primeraapp.util;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -44,7 +45,7 @@ public class ContactListAdapter extends ArrayAdapter<Contacto>{
         textView = (TextView) view.findViewById(R.id.viewDireccion);
         textView.setText(actual.getDireccion());
         ImageView ivContacImage = (ImageView) view.findViewById(R.id.ivContactImage);
-        ivContacImage.setImageURI(actual.getImageUri());
+        ivContacImage.setImageURI((Uri.parse(actual.getImageUri())));
 
     }
 }

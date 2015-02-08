@@ -23,13 +23,7 @@ import app.jopepato.com.primeraapp.util.TextChangedListener;
 
 public class MainActivity extends ActionBarActivity {
 
-    private EditText txtNombre, txtTelefono, txtEmail, txtDireccion;
-    private ArrayAdapter<Contacto> adapter;
-    private ImageView imgViewContacto;
-    private ListView contactsListView;
-    private Button btnAgregar;
-    private TabHost tabHost;
-    private int request_code = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,63 +75,3 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    public void onClick(View view) {
-        //Funcion que nos muestra un mensaje por pantalla cuando agregamos a alguien
-        agregarContacto(
-                txtNombre.getText().toString(),
-                txtTelefono.getText().toString(),
-                txtDireccion.getText().toString(),
-                txtEmail.getText().toString(),
-                (Uri) imgViewContacto.getTag() //Obtenemos el atributo TAG de la Uri de la imagen
-        );
-        String msg = String.format("%s ha sido agregado a la lista", txtNombre.getText());
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        btnAgregar.setEnabled(false);
-        limpiarCampos();
-    }
-
-
-
-    private void agregarContacto(String nombre, String telefono, String Email, String direccion, Uri imageUri) {
-        Contacto nuevo = new Contacto(nombre, telefono, Email, direccion, imageUri);
-        adapter.add(nuevo);
-    }
-
-    protected void limpiarCampos() {
-        txtNombre.getText().clear();
-        txtEmail.getText().clear();
-        txtDireccion.getText().clear();
-        txtTelefono.getText().clear();
-        //Reestablecemos la imagen
-        imgViewContacto.setImageResource(R.drawable.contacto);
-        imgViewContacto.getTag();
-        txtNombre.requestFocus();
-    }
-
-    public void onImgClick(View view) {
-        Intent intent = null;
-        //Verificamos la version
-        if (Build.VERSION.SDK_INT < 19){
-            //Android jellybean 4.3 y anteriores
-            intent = new Intent();
-            //Con get_content podemos acceder a los contenidos del telefono
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-
-        }else{
-            //Android 4.4 y superiores
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-        }
-        intent.setType("image/*");
-        startActivityForResult(intent, request_code);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK && requestCode == request_code){
-            imgViewContacto.setImageURI(data.getData());
-            //Utilizamos el atributo TAG para almacenar la URI del archivo seleccionado
-            imgViewContacto.setTag(data.getData());
-        }
-    }
-}
