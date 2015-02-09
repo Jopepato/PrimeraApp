@@ -1,7 +1,11 @@
 package app.jopepato.com.primeraapp;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,68 +17,65 @@ import java.util.ArrayList;
 
 import app.jopepato.com.primeraapp.util.ContactListAdapter;
 import app.jopepato.com.primeraapp.util.Contacto;
+import app.jopepato.com.primeraapp.util.TabsPagerAdapter;
 import app.jopepato.com.primeraapp.util.TextChangedListener;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
 
-    private EditText txtNombre, txtTelefono, txtEmail, txtDireccion;
-    private ArrayAdapter<Contacto> adapter;
-    private ImageView imgViewContacto;
-    private ListView contactsListView;
-    private Button btnAgregar;
-    private TabHost tabHost;
-    private int request_code = 1;
+    //Control de fichas (tabs)
+    private ViewPager viewPager;
+    private TabsPagerAdapter adapter;
+    private ActionBar actionBar;
+    //Titulos de las fichas
+    private String[] titulos = {"Crear Contacto", "Lista Contactos"};
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        inicializarComponetesUI();
-        inicializarListaContactos();
         inicializarTabs();
-
-    }
-
-    private void inicializarListaContactos() {
-        adapter = new ContactListAdapter(this, new ArrayList<Contacto>());
-        contactsListView.setAdapter(adapter);
-
     }
 
     private void inicializarTabs() {
-        tabHost = (TabHost) findViewById(R.id.tabHost);
-        tabHost.setup();
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        adapter = new TabsPagerAdapter(getFragmentManager());
 
-        TabHost.TabSpec spec = tabHost.newTabSpec("tab1");
-      //  spec.setContent(R.id.tab1);
-        spec.setIndicator("Crear");
-        tabHost.addTab(spec);
 
-        TabHost.TabSpec spec2 = tabHost.newTabSpec("tab2");
-        spec2.setContent(R.id.tab2);
-        spec2.setIndicator("Contactos");
-        tabHost.addTab(spec2);
-    }
+        viewPager.setAdapter(adapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-    //Con esta funcion inicializamos los componentes y los unimos a los de xml
-    private void inicializarComponetesUI() {
-        txtNombre = (EditText) findViewById(R.id.cmpNombre);
-        txtTelefono = (EditText) findViewById(R.id.cmpTelefono);
-        txtEmail = (EditText) findViewById(R.id.cmpEmail);
-        txtDireccion = (EditText) findViewById(R.id.cmpDireccion);
-        contactsListView = (ListView) findViewById(R.id.listView);
-        imgViewContacto = (ImageView) findViewById(R.id.imgViewContacto);
+        //Agregando las fichas (tabs)
 
-        txtNombre.addTextChangedListener(new TextChangedListener() {
-            @Override
-            public void onTextChanged(CharSequence seq, int i1, int i2, int i3) {
-                //Ponemos el boton en enable, cuando hay algo escrito en el nombre
-                btnAgregar = (Button) findViewById(R.id.btnAgregar);
-                btnAgregar.setEnabled(!seq.toString().trim().isEmpty());
+
+            for(String nombre: titulos){
+                ActionBar.Tab tab = actionBar.newTab().setText(nombre);
+                tab.setTabListener(this);
+                actionBar.addTab(tab);
             }
-        });
+        viewPager.setOnPageChangeListener(this);
     }
+
+    //<editor-fold desc="METODOS TAB CHANGE LISTENER">
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+    //</editor-fold>
 }
 
