@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import app.jopepato.com.primeraapp.util.ContactReceiver;
 import app.jopepato.com.primeraapp.util.Contacto;
 import app.jopepato.com.primeraapp.util.TextChangedListener;
 
@@ -87,7 +88,10 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
     }
     private void agregarContacto(String nombre, String telefono, String Email, String direccion, String imageUri) {
         Contacto nuevo = new Contacto(nombre, telefono, Email, direccion, imageUri);
-        //TODO: Corregir adapter.add(nuevo);
+        Intent intent  = new Intent("listaContactos");
+        intent.putExtra("operacion", ContactReceiver.CONTACTO_AGREGADO);
+        intent.putExtra("datos", nuevo);
+        getActivity().sendBroadcast(intent);
     }
 
     protected void limpiarCampos() {
