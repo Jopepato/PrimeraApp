@@ -5,20 +5,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TabHost;
 
-import java.util.ArrayList;
-
-import app.jopepato.com.primeraapp.util.ContactListAdapter;
-import app.jopepato.com.primeraapp.util.Contacto;
 import app.jopepato.com.primeraapp.util.TabsPagerAdapter;
-import app.jopepato.com.primeraapp.util.TextChangedListener;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
@@ -64,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     //<editor-fold desc="METODOS TAB CHANGE LISTENER">
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+           viewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
@@ -77,5 +65,22 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     }
     //</editor-fold>
+
+
+    //Metodos del view Change Listener
+    @Override
+     public void onPageSelected(int position) {
+        actionBar.setSelectedNavigationItem(position);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }
 
