@@ -50,6 +50,8 @@ public class CrearContactoFragment extends Fragment implements View.OnClickListe
                 btnAgregar.setEnabled(!seq.toString().trim().isEmpty());
             }
         });
+        btnAgregar = (Button) view.findViewById(R.id.btnAgregar);
+        btnAgregar.setOnClickListener(this);
     }
 
     @Override
